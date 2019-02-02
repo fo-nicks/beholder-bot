@@ -49,8 +49,8 @@ def messages_after(offset):
                 str(POLLING_INTERVAL)
             )
     )
-    updates = json.loads(bytea)['result']
     try:
+        updates = json.loads(bytea)['result']
         last_update_id = updates[len(updates) - 1]['update_id']
         messages = (
             last_update_id,
