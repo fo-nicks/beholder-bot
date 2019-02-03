@@ -1,17 +1,13 @@
 from logging         import out
 from dice.exceptions import DiceBaseException
 from dice            import roll
+from telegram        import args_from
 
-def _args_from(message):
-    try:
-        text = message['text']
-        args = text.split(' ')
-    except KeyError:
-        args = []
-    return args
+HELP = ('*Misc commands:*\n' +
+       '/roll ndS - where _n_ is number of dice and _S_ is number of sides')
 
 def roll_dice_command(message) :
-    args = _args_from(message)
+    args = args_from(message)
     try: 
         result = roll(args[1])
         if len(result) > 1:

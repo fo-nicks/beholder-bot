@@ -12,6 +12,15 @@ TOKEN = 'bot' + os.environ['TELEGRAM_TOKEN']
 CONNECTION = HTTPSConnection(TELEGRAM_URL)
 POLLING_INTERVAL = 1
 
+# Parse args from message text
+def args_from(message):
+    try:
+        text = message['text']
+        args = text.split(' ')
+    except KeyError:
+        args = []
+    return args
+
 # Fetch raw data from Telegram API endpoint
 def get(endpoint):
     CONNECTION.request('GET', '/{}/{}'.format(TOKEN, endpoint))
@@ -25,7 +34,8 @@ def post(endpoint, params):
         encoded_params,
         headers
     )
-    CONNECTION.getresponse().read()
+    response = CONNECTION.getresponse().read()
+    out(response)
 
 def reply(message, response):
     try:
@@ -36,10 +46,15 @@ def reply(message, response):
         to = '@' + name
         full_response = '{} {}'.format(to, response)
         endpoint = 'sendMessage'
-        params = {'chat_id':chat_id, 'text':full_response}
+        params = {
+            'chat_id':chat_id, 
+            'text':full_response,
+            'parse_mode':'Markdown'
+        }
         post(endpoint, params)
-    except KeyError:
-        pass
+        out('<- ' + full_response)
+    except Exception:
+        out(e)
 
 def messages_after(offset):
     bytea = get(
@@ -56,7 +71,7 @@ def messages_after(offset):
             last_update_id,
             [update['message'] for update in updates]
         )
-    except (KeyError, IndexError):
+    except (KeyError, IndexError) as e:
         messages = (offset, [])
     return messages
 

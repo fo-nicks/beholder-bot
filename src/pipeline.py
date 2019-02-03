@@ -8,7 +8,8 @@ def command_name_from(message):
         command = text.split(',')[0]
         if command.startswith('/'):
             command = command[1:].split(' ')[0]
-    except (KeyError, IndexError) :
+    except (KeyError, IndexError) as e :
+        out(e)
         command = None
     return command
         
@@ -24,6 +25,7 @@ class CommandRouter:
         try:
             response = self.commands[command_name](message)
             reply(message, response)
-        except KeyError:
+        except KeyError as e:
+            out(e)
             pass
 

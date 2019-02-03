@@ -1,3 +1,4 @@
+src/__pycache__
 prod-run.sh
 dev-run.sh
 token.key
