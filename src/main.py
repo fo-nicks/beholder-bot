@@ -22,7 +22,10 @@ COMMAND_ROUTER.add_route('stats', dndbeyond.stats_command)
 
 def process_messages(messages):
     for message in messages:
-        out('\n-> ' + message['text'])
+        try:
+            out('\n-> ' + message['text'])
+        except KeyError:
+            pass
         COMMAND_ROUTER.route(message)
 
 def event_loop():

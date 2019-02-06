@@ -10,11 +10,14 @@ def roll_dice_command(message) :
     args = args_from(message)
     try: 
         result = roll(args[1])
-        if len(result) > 1:
-            rolls_as_str = [str(roll) for roll in result]
-            output = '{} | {}'.format(', '.join(rolls_as_str), sum(result))
+        if isinstance(result, list):
+            if len(result) > 1:
+                rolls_as_str = [str(roll) for roll in result]
+                output = '{} | {}'.format(', '.join(rolls_as_str), sum(result))
+            else:
+                output = str(result[0])
         else:
-            output = str(result[0])
+            output = str(result)
         return output
     except Exception as e:
         out(e)
