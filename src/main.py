@@ -16,6 +16,7 @@ def help_command(messages):
 COMMAND_ROUTER = CommandRouter()
 COMMAND_ROUTER.add_route('help', help_command)
 COMMAND_ROUTER.add_route('roll', routes.roll_dice_command)
+COMMAND_ROUTER.add_route('dc', routes.dc_dice_command)
 COMMAND_ROUTER.add_route('setcharacter', dndbeyond.set_character_command)
 COMMAND_ROUTER.add_route('stats', dndbeyond.stats_command)
 
