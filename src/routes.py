@@ -5,7 +5,7 @@ from telegram        import args_from
 
 HELP = ('*Misc commands:*\n' +
        '/roll ndS    - where _n_ is number of dice and _S_ is number of sides\n' +
-       '/dc   ncD    - where _n_ is number of dice and _C_ is DC to beat\n' +
+       '/dc   ncD    - where _n_ is number of dice and _D_ is DC to beat\n' +
        '      n|mcD  - same as above, but will add modifier _m_ to each roll')
 
 def _dc_values_from(message):
